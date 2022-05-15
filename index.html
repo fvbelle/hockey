@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Hockey</title>
+  </head>
+  <body style="text-align: center">
+
+    <canvas id="unity-canvas" style="width: 100vw; aspect-ratio: 16/9; background: #231F20"></canvas>
+    <script src="Build/hockey-webgl.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/hockey-webgl.data.unityweb",
+        frameworkUrl: "Build/hockey-webgl.framework.js.unityweb",
+        codeUrl: "Build/hockey-webgl.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "Hockey",
+        productVersion: "0.1",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+      
+    function resize() {
+      canvas = document.getElementById('unity-canvas');
+      // calculate viewport (w and h)
+      vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+      ratio = vw/vh;
+      // if width is much bigger then height, height has to be leading (ratio 16/9)
+      if (ratio>(1.77)) {
+        canvas.style.height = '100vh';
+        canvas.style.width = '';
+      }
+      else  {
+        canvas.style.width = '100vw';
+        canvas.style.height = '';
+      }
+    }
+    resize();
+    window.onresize = resize;
+    </script>
+  </body>
+</html>
